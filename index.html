@@ -638,31 +638,54 @@
     .container,.container-wide,.slider-wrap{padding-left:24px;padding-right:24px;}
   }
   @media (max-width:700px){
-    .nav-toggle{display:block;}
+    .navbar{padding:14px 0;}
+    .nav-toggle{display:block;font-size:26px;}
     .nav-links{
       display:none;
       position:absolute;
-      top:40px;left:0;right:0;
+      top:calc(100% + 10px);left:0;right:0;
       flex-direction:column;
       align-items:center;
-      gap:16px;
-      background:var(--navy-dark);
-      padding:18px 0;
-      border-radius:10px;
+      gap:18px;
+      background:rgba(8,18,43,.98);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+      padding:22px 0;
+      border-radius:12px;
+      border:1px solid rgba(201,162,75,.3);
+      box-shadow:0 12px 30px rgba(0,0,0,.5);
       z-index:20;
     }
     .nav-links.open{display:flex;}
+    .nav-search{right:52px;}          /* keep search clear of the ☰ toggle */
+
+    /* hero */
+    .logo-band{padding:110px 16px 56px;}
+    .hero-sandwich{height:auto;min-height:260px;}
+    .main-title{font-size:clamp(24px,9vw,64px);}
+    .sub-left,.sub-right{font-size:clamp(8px,2.6vw,16px);}
+    .image-layer img{max-height:340px;}
+    .logo-tagline{margin-top:28px;font-size:14px;}
+
     .features{grid-template-columns:repeat(2,1fr);row-gap:24px;}
-    /* logo sub size is dynamic */
-    .arrow{font-size:26px;}
+    .arrow{font-size:26px;padding:2px;}
     .slider{aspect-ratio:16/9;}
-    .contact-inner{justify-content:center;text-align:center;}
+    .about-text .about-head{font-size:20px;}
+    .stat .num{font-size:32px;}
+    .contact-inner{justify-content:center;text-align:center;flex-direction:column;}
+    .contact-info{line-height:1.9;}
+    .section-title{margin-top:48px;}
   }
   @media (max-width:460px){
+    .container,.container-wide{padding-left:18px;padding-right:18px;}
     .product-grid{grid-template-columns:1fr;}
     .features{grid-template-columns:1fr;}
-    .stats{grid-template-columns:1fr;}
-    .slider-wrap{gap:4px;padding-left:12px;padding-right:12px;}
+    .stats{grid-template-columns:1fr;padding:28px 20px;}
+    .slider-wrap{gap:4px;padding-left:10px;padding-right:10px;}
+    .btn-pill{font-size:17px;padding:10px 32px;letter-spacing:2px;}
+    .main-title{font-size:clamp(22px,9.5vw,52px);}
+    .sub-titles{padding:0;}
+    .modal-box{padding:22px 18px;}
   }
 </style>
 </head>
