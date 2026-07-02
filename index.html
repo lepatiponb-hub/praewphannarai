@@ -113,11 +113,10 @@
   /* ---------- Hero band ---------- */
   .logo-band{
     text-align:center;
-    padding:160px 20px 80px;
+    padding:130px 20px 70px;
     position:relative;
     overflow:hidden;
     background: linear-gradient(135deg, #091a45 0%, #050e29 100%);
-    min-height: 75vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -153,77 +152,84 @@
   .hero-sandwich {
     position: relative;
     width: 100%;
-    max-width: 1100px;
-    height: 350px;
+    max-width: 1200px;
+    height: clamp(300px, 42vw, 540px);
     margin: 0 auto;
+  }
+  /* all three layers occupy the same box and center their content */
+  .text-layer,
+  .image-layer {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .text-layer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: inline-flex;
-    flex-direction: column;
-    align-items: stretch;
-    pointer-events: none;
+  /* boot image centered, behind the front text */
+  .image-layer { z-index: 2; }
+  .image-layer img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 40px 50px rgba(0,0,0,0.8));
+    transform: translateY(var(--py, 0px));
+  }
+  .boot-placeholder{
+    display:none;
+    width: min(420px,80%); aspect-ratio: 4/3;
+    align-items:center; justify-content:center;
+    border: 2px dashed #f4e8c1; color: #f4e8c1;
+    border-radius: 20px; background: rgba(0,0,0,0.4);
+  }
+  /* text wrapper shrinks to the title width so subtitles align to its edges */
+  .text-inner {
+    display: inline-block;
+    text-align: center;
   }
   .layer-back {
     z-index: 1;
     filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
   }
-  .layer-front {
-    z-index: 3;
-    -webkit-text-stroke: 2px #f4e8c1;
-    color: transparent;
-  }
-  .layer-back .main-title, 
-  .layer-back .sub-left, 
+  .layer-back .main-title,
+  .layer-back .sub-left,
   .layer-back .sub-right {
     color: #f4e8c1;
-    -webkit-text-stroke: 2px #f4e8c1;
+    -webkit-text-stroke: 1.5px #f4e8c1;
+  }
+  /* front layer: only the outline shows, letting the boot peek through */
+  .layer-front {
+    z-index: 3;
+    pointer-events: none;
+  }
+  .layer-front .main-title,
+  .layer-front .sub-left,
+  .layer-front .sub-right {
+    color: transparent;
+    -webkit-text-stroke: 1.5px #f4e8c1;
   }
   .main-title {
-    font-size: clamp(28px, 8vw, 110px);
+    font-size: clamp(34px, 8.5vw, 118px);
     font-weight: 900;
     letter-spacing: 1px;
     line-height: 1;
-    font-family: 'Impact', 'Arial Black', sans-serif;
-    text-align: center;
+    font-family: 'Arial Black','Impact',sans-serif;
     white-space: nowrap;
-    margin: 0 0 2px 0;
+    margin: 0;
   }
   .sub-titles {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-top: 4px;
+    padding: 0 4px;
   }
   .sub-left, .sub-right {
-    font-size: clamp(9px, 2.2vw, 22px);
+    font-size: clamp(9px, 1.6vw, 22px);
     font-weight: 900;
-    font-family: 'Impact', 'Arial Black', sans-serif;
+    font-family: 'Arial Black','Impact',sans-serif;
     letter-spacing: 1px;
     white-space: nowrap;
-  }
-  .image-layer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, calc(-50% + var(--py, 0px)));
-    z-index: 2;
-    width: min(700px, 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .image-layer img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 40px 50px rgba(0,0,0,0.8));
-    transform: scale(1.1);
   }
 
   .logo-tagline{
@@ -680,32 +686,35 @@
   <header class="logo-band" id="home">
     <div class="container hero-inner">
       <div class="hero-sandwich">
-        
+
         <!-- Layer 1: Back Text -->
         <div class="text-layer layer-back fade-up d1">
-          <div class="main-title">PRAEWPHANNARAI</div>
-          <div class="sub-titles">
-            <div class="sub-left">PRAEWPHANNARAI COMMERCIAL</div>
-            <div class="sub-right">COMPANY LIMITED</div>
+          <div class="text-inner">
+            <div class="main-title">PRAEWPHANNARAI</div>
+            <div class="sub-titles">
+              <div class="sub-left">PRAEWPHANNARAI COMMERCIAL</div>
+              <div class="sub-right">COMPANY LIMITED</div>
+            </div>
           </div>
         </div>
 
         <!-- Layer 2: Boot Image -->
         <div class="image-layer fade-up d2">
-          <!-- เปลี่ยน src เป็นที่อยู่รูป Boot ของจริง (แบบไม่มีพื้นหลัง) -->
-          <img src="boot.png" alt="Safety Boot" class="boot-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div style="display:none; width: 400px; height: 300px; align-items:center; justify-content:center; border: 2px dashed #f4e8c1; color: #f4e8c1; border-radius: 20px; background: rgba(0,0,0,0.4);">ใส่รูป Boot โปร่งใสที่นี่</div>
+          <img src="image/pngwing.com.png" alt="Safety Boot" class="boot-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="boot-placeholder">ใส่รูป Boot โปร่งใสที่นี่</div>
         </div>
 
         <!-- Layer 3: Front Text (Outline only) -->
         <div class="text-layer layer-front fade-up d1">
-          <div class="main-title">PRAEWPHANNARAI</div>
-          <div class="sub-titles">
-            <div class="sub-left">PRAEWPHANNARAI COMMERCIAL</div>
-            <div class="sub-right">COMPANY LIMITED</div>
+          <div class="text-inner">
+            <div class="main-title">PRAEWPHANNARAI</div>
+            <div class="sub-titles">
+              <div class="sub-left">PRAEWPHANNARAI COMMERCIAL</div>
+              <div class="sub-right">COMPANY LIMITED</div>
+            </div>
           </div>
         </div>
-        
+
       </div>
       
       <p class="logo-tagline fade-up d3">
